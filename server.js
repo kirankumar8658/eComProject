@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 
 const user_model = require("./models/user.model");
 require("dotenv").config();
-
+const authRoutes=require('./routes/auth.routes')
 const app = express();
-
+app.use(express.json())
 const port = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGO_URL).then(()=>{
@@ -42,6 +42,7 @@ async function init(){
     }
 }
 
+app.use('/ecomm/api/v1/auth', authRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
